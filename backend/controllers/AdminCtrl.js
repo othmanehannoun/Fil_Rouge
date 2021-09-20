@@ -1,6 +1,9 @@
 const Admin = require('../models/AdminModel')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
+const nodemailer = require('nodemailer')
+
+
 // const validation = require('../middleware/validation')
 const { model } = require('mongoose')
 
@@ -62,6 +65,34 @@ const AdminCtrl = {
         }
 
     },
+
+    ContactUs : (req, res) => {
+
+        const {nom, email, message} =  req.body
+         // Send Email 
+         const transport = nodemailer.createTransport({
+            service: "gmail",
+                auth: {
+                    user: process.env.EMAIL,  // TODO: your gmail account
+                    pass: process.env.PASSWORD // TODO: your gmail password
+                }
+            })
+          
+            let info =  transport.sendMail({
+                from: email,
+                to: process.env.EMAIL,
+                subject: "message from contact us ",
+                html: `
+                <div id="mailsub" class="notification">
+                <div> From: ${nom} </div>
+                 <div> ${message} </div> 
+                </div>
+                
+            `
+            })
+
+        res.json('Send Email Success');
+    }
 
 }
 

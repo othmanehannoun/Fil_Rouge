@@ -4,9 +4,13 @@ const adminCtrl = require('../controllers/AdminCtrl')
 
 
 
+
 router.post('/AdminRegister', adminCtrl.register);
 
 router.post('/AdminLogin', adminCtrl.login);
+
+router.post('/contact', adminCtrl.ContactUs);
+
 
 
 
