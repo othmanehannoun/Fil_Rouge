@@ -30,6 +30,8 @@
      
       const idC = Carnet.Carnet._id
       const Clinet_Name = Carnet.Carnet.CarnetName
+      const Total = Carnet.Carnet.total
+    
     
 
       AsyncStorage.setItem('Carnet',JSON.stringify(Carnet.Carnet));
@@ -64,7 +66,7 @@
   
                  axios.get(url + idC)
                 .then(response=>{
-                    setProducts(response.data.products)
+                    setProducts(response.data.result)
                   })
                 
                 .catch(err=>{
@@ -87,9 +89,9 @@
       return DateP.getDate() + '/' + (DateP.getMonth() + 1) + '/' + DateP.getFullYear();
     }
 
-    const getTotalPrice = () => {
-    return products.reduce((price, item) => Number(item.Price) + price, 0);
-    };
+    // const getTotalPrice = () => {
+    // return products.reduce((price, item) => Number(item.Price) + price, 0);
+    // };
 
       let [fontsLoaded] = useFonts({
           Inter_200ExtraLight,
@@ -113,16 +115,14 @@
                         <Title>{Clinet_Name}</Title>
                       </View>
                       <View style={styles.infoBox}>
-                         <Text style={{fontSize:20, fontFamily:'BreeSerif-Regular', color: '#ff3838'}}>{getTotalPrice()} DH</Text>
+                         <Text style={{fontSize:20, fontFamily:'BreeSerif-Regular', color: '#ff3838'}}>{Total} DH</Text>
                          <Text style={{textAlign:"center", fontFamily:'BreeSerif-Regular', }}>Crédit</Text> 
                       </View>
                   </View>
                      
                  </View>
   
-                 {
-                   getTotalPrice() > 0 
-                   ?
+                 
                    <FlatList 
                   style={styles.flatlist}
                   data={products}
@@ -175,16 +175,9 @@
                           
                         )}
                   />
-                  :
-                  <View style={{flex:1, justifyContent:'center'}}>
-                    <Text style={{textAlign:'center', fontWeight:'bold', fontSize:20}}> There is no product </Text>
-                  </View>
-                 }
-  
-                      <View style={styles.ViewBtn}>
+                    
+              <View style={styles.ViewBtn}>
                         
-                         
-
                 <Modal
                     visible={showModal}
                     onRequestClose={() => setShowModal(false)}
@@ -276,9 +269,8 @@
   },
   ViewBtn:{
       width: '100%',
-      flexDirection:'row',
-      justifyContent:'center',  
-      margin: 20
+      justifyContent:'center', 
+      margin: 40
   },
   });
   

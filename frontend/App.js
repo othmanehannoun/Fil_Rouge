@@ -11,7 +11,7 @@ import { AntDesign } from '@expo/vector-icons';
 
 import TypeUser from './src/screen/TypeUser';
 import OnBoardScreen from './src/screen/OnBoardScreen';
-import Lodding from './Lodding';
+import Lodding from './src/Component/Lodding'
 
 
 import Login from './src/screen/Epicier/Login';

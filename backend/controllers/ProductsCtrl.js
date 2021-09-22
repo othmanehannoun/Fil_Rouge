@@ -27,11 +27,17 @@ const ProductCtrl = {
                 //console.log(result)
                 if (!result) {
                     res.send({ message: "result not found" });
-                } else {
-                result.total += Price;
-                const subTotal = await result.save();
-                console.log(subTotal);
+                } else if(Type == "Payment") {
+                   result.total -= Price;
+                    const subTotal = await result.save();
+                    console.log(subTotal);
                  }
+                 else{
+                    result.total += Price;
+                 
+                    const subTotal = await result.save();
+                    console.log(subTotal);
+                  }
                 
             }
      

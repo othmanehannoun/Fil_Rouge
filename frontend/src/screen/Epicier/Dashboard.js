@@ -1,14 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import { Text, View, StyleSheet, Dimensions, FlatList, TouchableOpacity, Image, } from 'react-native'
+import { Text, View, StyleSheet, Dimensions, FlatList, TouchableOpacity, Image, Button, } from 'react-native'
 import { Searchbar } from 'react-native-paper';
-
 import AsyncStorage from '@react-native-async-storage/async-storage'
-// import {Data} from "./Data";
+
 import axios from 'axios'
-import { Colors } from '../../Component/Style';
-const {primary} = Colors
-
-
 
 import AppLoading from 'expo-app-loading';
 import { 
@@ -16,18 +11,15 @@ import {
   Inter_200ExtraLight,
   
   } from '@expo-google-fonts/inter';
-import { TextInput } from 'react-native-paper';
-
-
+import { Colors } from '../../Component/Style';
+  const {primary, button, body} = Colors
 
   const  Dashboard = ({navigation})=> {
  
         const [masterData, setMasterData] = useState([])
         const [filterData, setFilterData] = useState([])
         const [search, setSearch] = useState('')
-
-
-
+        
         useEffect(()=>{
               
             const url = 'http://10.0.2.2:7000/Carnet/carnetbyepicier/'
@@ -177,8 +169,7 @@ import { TextInput } from 'react-native-paper';
 const styles = StyleSheet.create({
         container:{
           flex:1,
-          backgroundColor:"#F5FDFF",
-          
+          backgroundColor: body,
         },
 
       dash: {
@@ -191,10 +182,12 @@ const styles = StyleSheet.create({
 
     infoBoxWrapper: {
       backgroundColor: "#FFF",
-      borderBottomColor: 'red',
-      borderBottomWidth: 1,
-      borderTopColor: 'red',
-      borderTopWidth: 1,
+      // borderBottomWidth: 1,
+      // borderBottomColor: 'red',
+      // borderTopColor: 'red',
+      // borderTopWidth: 1,
+       borderWidth: 1,
+       borderColor : button,
       padding: 20,
       flexDirection: 'row',
       height: 100,

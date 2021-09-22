@@ -61,7 +61,7 @@ const Profile = ({navigation}) => {
 
         AsyncStorage.removeItem('token');
         alert('Success logout')
-        navigation.navigate('LoginEp')
+        navigation.navigate('TypeUser')
       }).catch(err=>{
         console.log(err);
       })

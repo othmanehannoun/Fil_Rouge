@@ -4,9 +4,9 @@
 
 
 export const Colors = {
-    primary: '#1B1464',
-    secondary: '#E5E7EB',
-    tertiary: '#1F2937',
+    primary: '#6c5ce7',
+    button: '#00cec9',
+    body: '#f1f2f6',
     darkLight: '#9CA3AF',
     brand: '#6D28D9',
     green: '#10B981',

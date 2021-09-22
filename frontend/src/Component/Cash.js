@@ -89,7 +89,7 @@ export default function Cash (props) {
                    
               <View style={styles.modalView}>
               <Text style={{fontSize:25, marginBottom: 5, fontFamily:'BreeSerif-Regular', marginTop:'20%'}}>
-                    Ajouter produit 
+                    Cash Payment 
               </Text>
               <View style={styles.inputContainer}>
 

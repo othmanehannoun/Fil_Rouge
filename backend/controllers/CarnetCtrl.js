@@ -8,9 +8,9 @@ const { model } = require('mongoose')
 paypal.configure({
   mode: "sandbox", //sandbox or live
   client_id:
-      "AXwrQzbUSCEVNL70sfrvdflYS8jVlKz0b9_ffq4CjwJ9ddKZAb1M6NyCaSy7nl6Zf-BnF_CTjYfYFh_L",
+      "AUY4m3BFlWN9eWjIXgMSlgUQe-QXRPeUyUcHAt1rDhkcRTbmJRiN1Pj75qThrxsX12QoQl9mZzfNHM8p",
   client_secret:
-      "EFakDf0-ryvexaYSwub2PN6oViGABgEGCRaB7sQ2YIHBVudlWWGEIX_KWqvi1QQj_MToVhvr6vH8d5YE"
+      "EKg4VsZskkCEQFJnEl8ah4BL1vS4eZuAGoPYEI9nGrYb1WljjcQhuF2PyTOaud6sYD4S8KRWjfxvxYBh"
   });
 
 const CarnetCtrl = {
@@ -119,7 +119,7 @@ const CarnetCtrl = {
 
     },
 
-    Success : (req, res) => {
+    Success : async(req, res) => {
     
     var PayerID = req.query.PayerID;
     var paymentId = req.query.paymentId;
@@ -134,24 +134,42 @@ const CarnetCtrl = {
         if (error) {
             console.log(error.response);
             throw error;
-        } else {
+        } else { 
             console.log("Get Payment Response");
             console.log(JSON.stringify(payment.transactions[0].amount.total));
+
+            const price = req.params.totalPrice
+            const idcarnet = req.params.IDCarnet
+            console.log(idcarnet);
 
             const newProduct = new Product({
 
              ProductName : "Payment",
-             Price : req.params.totalPrice, 
-             idCarnet : req.params.IDCarnet,
+             Price : price, 
+             idCarnet : idcarnet,
              Type : "Payment"
-              
+                       
           })
+          const done = newProduct.save()
 
-          newProduct.save()
+          const updateTotale =async () =>{
+            const result = await Carnet.findById(req.params.IDCarnet);
+            console.log(result);
+            result.total -= price;
+            const done = result.save();
+
+            console.log(done);
+          }
+          updateTotale()
+          
+          
           console.log(req.params.IDCarnet);
           console.log(req.params.totalPrice);
           res.render("success");
-        }
+
+     
+         
+      }
     });
       
       

@@ -9,7 +9,7 @@ const userCtrl = {
     register: async (req, res) =>{
         try {
             console.log(req.body);
-            const { error } = validation.registerValidation(req.body);
+            const { error } = validation.ClientValidation(req.body);
             if (error) return res.status(400).send(error.details[0].message);
 
             const {last_name, first_name, email, phone, address, password} = req.body

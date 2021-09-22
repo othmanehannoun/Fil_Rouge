@@ -11,7 +11,9 @@
   
   import { AntDesign } from '@expo/vector-icons';
   import { FontAwesome5 } from '@expo/vector-icons';
-  
+  import { Colors } from '../../Component/Style';
+    const {primary, button, body} = Colors
+
   import AppLoading from 'expo-app-loading';
   import { 
     useFonts, 
@@ -95,7 +97,7 @@
   
           return (
        
-              <>
+              <View style={styles.container}>
                  <View style={styles.table}>
 
                  <View style={styles.infoBoxWrapper}>
@@ -170,7 +172,7 @@
                          <TouchableOpacity 
                          onPress={() => {setModalVisibleCash(true)}}
                           style={{
-                              backgroundColor:"#44bd32",
+                              backgroundColor: button,
                               padding:10,
                               height: 55,
                               borderRadius: 10,
@@ -189,7 +191,7 @@
                          <TouchableOpacity 
                           onPress={() => {setModalVisible(true)}}
                           style={{
-                              backgroundColor:"#ff3838",
+                              backgroundColor: primary,
                               padding:10,
                               height: 55,
                               borderRadius: 10,
@@ -259,7 +261,7 @@
                          </View>
 
                       </Modal>
-              </>
+              </View>
                  
               
           
@@ -271,8 +273,7 @@
   const styles = StyleSheet.create({
       container:{
         flex:1,
-       
-        // backgroundColor:"#F5FDFF",
+        backgroundColor: body
       },
 
       table: {

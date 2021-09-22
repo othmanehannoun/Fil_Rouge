@@ -39,7 +39,7 @@ import {
         let user = await AsyncStorage.getItem('user'); 
         let parsed = JSON.parse(user);  
         const id = parsed._id
-        console.log(id);
+        // console.log(id);
 
         await axios.get(url + id)
         .then(response=>{

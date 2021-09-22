@@ -241,15 +241,16 @@ const styles = StyleSheet.create({
       flex: 1,
       justifyContent: "center",
       alignItems: "center",
-      marginTop: 22
+      justifyContent: "flex-end"
+     
     },
     modalView: {
-      width:'93%',
+     
       marginTop: Dimensions.get('window').width*0.09,
       backgroundColor: "#fff",
       borderColor: primary,
       borderWidth: 1,
-      borderRadius: 10,
+      borderRadius: 20,
       padding: 35,
       alignItems: "center",
     },
@@ -264,8 +265,8 @@ const styles = StyleSheet.create({
         padding: 20,  
         shadowColor: "rgba(90, 100, 100, 10)",
         width: Dimensions.get('window').width * 0.9,
-        height: Dimensions.get('window').width * 0.9,
-        justifyContent: 'center',
+        height: Dimensions.get('window').width * 0.7,
+     
        
         
     },
@@ -291,7 +292,6 @@ const styles = StyleSheet.create({
   
     removeIcon:{
       position: 'absolute',
-    
       top: 20
       
     }

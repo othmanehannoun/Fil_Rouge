@@ -150,7 +150,7 @@ export default function AddClient ({route, navigation}){
                     
             
               <View>
-                  <Text>{epicier.email}</Text>
+                  
                 {/* <Feather name="phone" size={24} color="black" style={styles.iconInput}/> */}
                 <TextInput
                     style={styles.input}
@@ -290,7 +290,7 @@ const styles = StyleSheet.create({
         backgroundColor: "#fff",
         shadowColor: "rgba(90, 100, 100, 10)",
         width: Dimensions.get('window').width * 0.9,
-        height: Dimensions.get('window').width * 0.9,
+        height: Dimensions.get('window').width * 1.1,
         borderRadius: 30,
         justifyContent: 'center',
         shadowColor: "#000",  

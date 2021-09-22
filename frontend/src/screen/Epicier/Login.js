@@ -4,16 +4,15 @@ import Button from '../../button/Button';
 import Header from '../../Component/Header'
 import * as Yup from 'yup'
 
-import { AntDesign } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
 import { Formik } from "formik";
-import { StatusBar } from 'expo-status-bar';
+
 import axios from 'axios';
 import AppLoading from 'expo-app-loading';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { Colors } from '../../Component/Style';
-const {primary} = Colors
+const {primary, body} = Colors
 // import { _storeData, _retrieveData} from "../../Component/localStorge";
 
 import { 
@@ -48,7 +47,7 @@ export default function Login ({navigation}){
           // console.log(result);
           const {msg, epicier, accesstoken} = result
           if(msg !== 'You have signed in successfully'){
-            handleMessage('password or email incorrect');
+            handleMessage(msg);
             
           }else{
             
@@ -226,7 +225,7 @@ export default function Login ({navigation}){
 
 const styles = StyleSheet.create({
     container: {
-     backgroundColor:"#F5FDFF",
+     backgroundColor: body,
      height: Dimensions.get('window').width*2,
      flex: 1,
      padding:20

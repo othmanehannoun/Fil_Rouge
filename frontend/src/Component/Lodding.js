@@ -1,7 +1,8 @@
 import React, {useEffect} from 'react'
 import {StyleSheet, ActivityIndicator, Image, View, Dimensions} from 'react-native'
-
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Colors } from './Style';
+const {primary} = Colors
 
 function Lodding ({navigation}){
 
@@ -19,10 +20,10 @@ function Lodding ({navigation}){
       },[])
     
         return (
-            <View style={styles.acc}>
+            <View style={styles.container}>
                 <Image
                     style={styles.logo}
-                    source={require('./assets/work.png')}
+                    source={require('../../assets/work.png')}
                     resizeMode="contain"
                 />
                 <ActivityIndicator size='30%' color='#ffff' />
@@ -33,13 +34,14 @@ function Lodding ({navigation}){
 }
 
 const styles = StyleSheet.create({
-    acc: {
+    container: {
         flex: 1,
-        backgroundColor:"#1B1464",
+        backgroundColor: primary,
         alignItems: 'center',
         justifyContent: 'center',
         
        },
+
        logo:{
            marginBottom: Dimensions.get('window').width*-0.45,
            width: Dimensions.get('window').width * 0.2,

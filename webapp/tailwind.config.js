@@ -11,10 +11,13 @@ module.exports = {
         "bookmark-grey": "#9194A2",
         "bookmark-white": "#f7f7f7",
       },
+      fontFamily: {
+        body: ['PT Sans'],
+      },
+
+
     },
-    fontFamily: {
-      body: ['PT Sans'],
-    },
+      
     container: {
       center: true,
       padding: "1rem",
