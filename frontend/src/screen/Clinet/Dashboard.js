@@ -144,8 +144,9 @@ import {
                     flexDirection:'row',
                     backgroundColor: '#FFF',
                     marginHorizontal: 20,
-                    height: Dimensions.get('window').width*0.13,
+                    height: 'auto',
                     padding: 20,
+                    borderRadius : 10, 
                     borderBottomColor: '#eee',
                     borderBottomWidth: 1,
                     justifyContent: "space-between",
@@ -162,7 +163,7 @@ import {
                         <Text style={{fontSize:20, fontFamily:'BreeSerif-Regular', marginLeft:10, color:'black'}}>{item.InfoEpicier.toUpperCase()}</Text>
                         </View>
                    
-                          <Text style={{fontSize: 20, fontFamily:'BreeSerif-Regular', color:"#ff3838",marginTop:5}}>{item.total} DH</Text>
+                          <Text style={{fontSize: 20, fontFamily:'BreeSerif-Regular', color:"#ff3838"}}>{item.total} DH</Text>
                                 
                     </View>
                 </TouchableOpacity>

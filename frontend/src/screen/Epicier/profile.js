@@ -1,5 +1,5 @@
 import React,{useState, useEffect} from 'react';
-import {View, SafeAreaView, StyleSheet} from 'react-native';
+import {View, SafeAreaView, StyleSheet, ScrollView} from 'react-native';
 import {
   Avatar,
   Title,
@@ -71,9 +71,10 @@ const Profile = ({navigation}) => {
 
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
 
-      <View style={styles.userInfoSection}>
+     <ScrollView >
+     <View style={styles.userInfoSection}>
         <View style={{flexDirection: 'row', marginTop: 15}}>
           <Avatar.Image 
             source={{
@@ -156,7 +157,8 @@ const Profile = ({navigation}) => {
           </View>
         </TouchableRipple>
       </View>
-    </SafeAreaView>
+     </ScrollView>
+    </View>
   );
 };
 
@@ -197,7 +199,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   menuWrapper: {
-    marginTop: 10,
+    marginTop: 0,
   },
   menuItem: {
     flexDirection: 'row',

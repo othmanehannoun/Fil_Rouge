@@ -17,7 +17,7 @@ import AddButton from '../button/Button'
 import DateTimePicker from '@react-native-community/datetimepicker';
 
 import { Colors } from '../Component/Style';
-const {primary} = Colors
+const {primary, button} = Colors
 
 export default function AddProduct (props) {
 
@@ -35,7 +35,7 @@ export default function AddProduct (props) {
   const [date, setDate] = useState(new Date());
   const [mode, setMode] = useState('date');
   const [show, setShow] = useState(false);
-  const [text, setText] = useState('Empty')
+  const [text, setText] = useState('JJ/MM/AA') 
 
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate || date;
@@ -184,11 +184,15 @@ export default function AddProduct (props) {
               <View>
               {/* <MyDatePicker /> */}
 
-              <View style={{ margin: 20 }}>
-                <Button onPress={() => showMode('date')} title="DatePicker" />
-              </View>
+              <View style={styles.dateStyle}>
+                <TouchableOpacity 
+                  onPress={() => showMode('date')}
+                >
+                  <Text style={{ fontWeight: 'bold', fontSize: 20, textAlign:'center', color: primary}}>{text}</Text>
 
-              <Text style={{ fontWeight: 'bold', fontSize: 20 }}>{text}</Text>
+                </TouchableOpacity>                
+              </View>
+              
 
                       
 
@@ -244,9 +248,8 @@ const styles = StyleSheet.create({
       justifyContent: "flex-end"
      
     },
-    modalView: {
-     
-      marginTop: Dimensions.get('window').width*0.09,
+    modalView: {  
+    //  marginTop: Dimensions.get('window').width*0.09,
       backgroundColor: "#fff",
       borderColor: primary,
       borderWidth: 1,
@@ -264,11 +267,7 @@ const styles = StyleSheet.create({
     inputContainer:{
         padding: 20,  
         shadowColor: "rgba(90, 100, 100, 10)",
-        width: Dimensions.get('window').width * 0.9,
-        height: Dimensions.get('window').width * 0.7,
-     
-       
-        
+        width: Dimensions.get('window').width,        
     },
     input: {
         backgroundColor: '#f5f6fa',
@@ -289,6 +288,13 @@ const styles = StyleSheet.create({
         left:10,
         zIndex:1
     },
+      dateStyle:{
+      
+        height: 50,
+        borderWidth: 2,
+        borderColor: primary,
+        justifyContent:"center"
+      },
   
     removeIcon:{
       position: 'absolute',

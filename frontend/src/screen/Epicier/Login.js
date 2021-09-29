@@ -226,15 +226,15 @@ export default function Login ({navigation}){
 const styles = StyleSheet.create({
     container: {
      backgroundColor: body,
-     height: Dimensions.get('window').width*2,
      flex: 1,
      padding:20
     },
     inputContainer:{
+      
         padding: 20,
         paddingVertical: Dimensions.get('window').width * 0.1,
         backgroundColor: "#fff",
-        height: 'auto',
+       // height :Dimensions.get('window').width * 1,
         marginTop: Dimensions.get('window').width * -0.25,
         borderRadius: 30,
         justifyContent: 'center',
@@ -248,7 +248,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 50,
         color: "#4b4b4b",
         fontWeight: 'bold',
-        height: Dimensions.get('window').width*0.13,
+        height: Dimensions.get('window').width * 0.13,
         borderRadius: 10,
         shadowColor: "rgba(200, 200, 200, 0.35)",
         borderWidth: StyleSheet.hairlineWidth,

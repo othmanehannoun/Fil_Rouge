@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import { Text, View, StyleSheet, Dimensions, ActivityIndicator, TouchableOpacity } from 'react-native'
+import { Text, View, StyleSheet, Dimensions, ActivityIndicator, ScrollView , KeyboardAvoidingView} from 'react-native'
 import Button from '../../button/Button';
 import { TextInput } from 'react-native-paper';
 import * as Yup from 'yup'
@@ -7,7 +7,7 @@ import { Formik } from "formik";
 import axios from 'axios';
 import { Colors } from '../../Component/Style';
 
-const {primary} = Colors
+const {primary, body} = Colors
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -107,10 +107,9 @@ export default function AddClient ({route, navigation}){
       }
   
         return (
-            // <KeyboardAvoidingView>
-             // <ScrollView >
-
-            <View style={styles.container}>
+            <KeyboardAvoidingView>
+             <ScrollView >
+             <View style={styles.container}>
                 <Text style={{fontSize:25, marginBottom: 25, fontFamily:'BreeSerif-Regular'}}>Modifier les informations</Text>   
             <View style={styles.inputContainer}> 
          
@@ -146,9 +145,6 @@ export default function AddClient ({route, navigation}){
                 
                }
                 
-                     
-                    
-            
               <View>
                   
                 {/* <Feather name="phone" size={24} color="black" style={styles.iconInput}/> */}
@@ -270,8 +266,8 @@ export default function AddClient ({route, navigation}){
 
             </View>
 
-            // </ScrollView>
-            // </KeyboardAvoidingView>
+            </ScrollView>
+            </KeyboardAvoidingView>
         )
     
 }
@@ -279,18 +275,18 @@ export default function AddClient ({route, navigation}){
 
 const styles = StyleSheet.create({
     container: {
-     backgroundColor:"#F5FDFF",
+     backgroundColor: body,
      flex: 1,
      padding:20,
      justifyContent: 'center',
      alignItems: 'center'
     },
     inputContainer:{
-        padding: 20,
+        padding: 30,
         backgroundColor: "#fff",
         shadowColor: "rgba(90, 100, 100, 10)",
         width: Dimensions.get('window').width * 0.9,
-        height: Dimensions.get('window').width * 1.1,
+        height: 'auto',
         borderRadius: 30,
         justifyContent: 'center',
         shadowColor: "#000",  
@@ -299,12 +295,12 @@ const styles = StyleSheet.create({
     },
     input: {
         backgroundColor: '#f5f6fa',
+        height: 45,
         marginVertical: 10,
         color: "#4b4b4b",
         fontWeight: 'bold',
         borderRadius: 10,
         shadowColor: "rgba(200, 200, 200, 0.35)",
-       
         borderColor: "rgba(171, 180, 189, 0.65)",
       },
 

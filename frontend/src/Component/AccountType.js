@@ -53,7 +53,7 @@ export default function AccountType(props) {
 const styles = StyleSheet.create({
 
   categoryItemWrapper: {
-
+    width : '100%',
     backgroundColor: '#FFFF',
     flexDirection: "row",
     height: '18%',

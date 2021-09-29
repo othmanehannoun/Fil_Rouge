@@ -130,11 +130,13 @@ import { Colors } from '../../Component/Style';
                        flexDirection:'row',
                        backgroundColor: '#FFF',
                        marginHorizontal: 20,
-                       height: Dimensions.get('window').width*0.13,
+                       height: 'auto',
                        padding: 20,
+                       borderRadius : 10,
                        borderBottomColor: '#eee',
                        borderBottomWidth: 1,
-                       justifyContent: "space-between",
+                       justifyContent : 'space-between'
+                       
                        
                        
                       
@@ -150,7 +152,7 @@ import { Colors } from '../../Component/Style';
                         <Text style={{fontSize:20, fontFamily:'BreeSerif-Regular', marginLeft:10, color:'black'}}>{item.CarnetName.toUpperCase()}</Text>
                         </View>
                    
-                          <Text style={{fontSize: 20, fontFamily:'BreeSerif-Regular', color:"#ff3838",marginTop:5}}>{item.total} DH</Text>
+                          <Text style={{fontSize: 20, fontFamily:'BreeSerif-Regular', color:"#ff3838",textAlign: 'center'}}>{item.total} DH</Text>
                                 
                     </View>
                 </TouchableOpacity>

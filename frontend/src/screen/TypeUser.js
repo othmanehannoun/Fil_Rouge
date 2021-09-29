@@ -40,7 +40,7 @@ export default function TypeUser({navigation}) {
           <View>
               <Text style={{
                 fontFamily: 'BreeSerif-Regular', 
-                fontSize:30,
+                fontSize: Dimensions.get('window').width * 0.05,
                 marginBottom: Dimensions.get('window').width * 0.05,
                 }}
                 >
