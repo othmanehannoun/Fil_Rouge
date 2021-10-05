@@ -19,13 +19,14 @@ import {
   
   } from '@expo-google-fonts/inter';
 
-export default function EpicierUpdate ({route, navigation}){
+export default function UserUpdate ({route, navigation}){
     const data = route.params;
     const id = data.id;
     
     const validationSchema = Yup.object({
-        Username: Yup.string().min(4, 'Invalid Username').required('Usernam is Required '),
-        Magazine_Name: Yup.string().min(10, 'Invalid password').required('Required').required('password is Required'),
+        
+        last_name: Yup.string().min(4, 'Invalid').required('Last Name is Required '),
+        first_name: Yup.string().min(4, 'Invalid').required('First Name is Required '),
         email: Yup.string().email('Invalid email address').required('email is Required '),
         phone: Yup.number().min(10, 'Invalid Phone').required('Required').required('password is Required'),
         address: Yup.string().min(6, 'Invalid Address').required('Required').required('password is Required'),
@@ -33,28 +34,28 @@ export default function EpicierUpdate ({route, navigation}){
       })
       
     //   USESTATE 
-    const [epicier, setEpicier] = useState([])
+    const [user, setUser] = useState([])
     const [message, setMessage] = useState();
 
 
     const initialValues = {
-            Username: epicier.Username, 
-            Magazine_Name: epicier.Magazine_Name, 
-            email: epicier.email,
-            phone: epicier.phone, 
-            address: epicier.address
+            last_name: user.last_name, 
+            first_name: user.first_name, 
+            email: user.email,
+            phone: user.phone, 
+            address: user.address
         }
    
 
     //    Get Epicier 
-       const getEpicier = async()=>{
-        const url = 'http://10.0.2.2:7000/Epicier/getEpicier/'
+       const getUser = async()=>{
+        const url = 'http://10.0.2.2:7000/getUser/'
         try{   
           await axios.get(url + id)
         //   console.log(id)
           .then(response=>{
             
-            setEpicier(response.data.epicier)
+            setUser(response.data.user)
         
           }).catch(err=>{
             console.log(err);
@@ -73,11 +74,11 @@ export default function EpicierUpdate ({route, navigation}){
             handleMessage(null);
             // console.log(values);
     
-            const url = 'http://10.0.2.2:7000/Epicier/update/' + id ;
+            const url = 'http://10.0.2.2:7000/update/' + id ;
             await axios.patch(url, values)
             .then((response) => {
                 alert('SUCCESS UPDATE')
-                navigation.navigate('Profil')
+                // navigation.navigate('Profil')
                 
                 setSubmitting(false);
             })
@@ -88,7 +89,7 @@ export default function EpicierUpdate ({route, navigation}){
        };
    
        useEffect (()=>{
-           getEpicier()
+           getUser()
        }, [])
 
 
@@ -144,45 +145,45 @@ export default function EpicierUpdate ({route, navigation}){
                    )
                 
                }
-                
+               
               <View>
                   
                 {/* <Feather name="phone" size={24} color="black" style={styles.iconInput}/> */}
                 <TextInput
                     style={styles.input}
-                    label="Username"
+                    label="Last Name"
                     mode='outlined'
-                    name = 'Username'
-                    onChangeText={handleChange('Username')}
-                    onBlur={handleBlur('Username')}
-                    value={values.Username}
-                    placeholder="Username"
+                    name = 'last_name'
+                    onChangeText={handleChange('last_name')}
+                    onBlur={handleBlur('last_name')}
+                    value={values.last_name}
+                    placeholder="last_name"
                     placeholderTextColor="#84817a"
                 />
-                 {errors.Username &&
-                     <Text style={{ fontSize: 10, color: 'red' }}>{errors.Username}</Text>
+                 {errors.last_name &&
+                     <Text style={{ fontSize: 10, color: 'red' }}>{errors.last_name}</Text>
                     }
               </View>
-       
-               <View>
-               {/* <Feather name="lock" size={24} color="black" style={styles.iconInput}/> */}
-                 <TextInput
-                    style={styles.input}
-                    label="Magazine Name"
-                    mode='outlined'
-                    name='Magazine_Name'
-                    onChangeText={handleChange('Magazine_Name')}
-                    onBlur={handleBlur('Magazine_Name')}
-                    value={values.Magazine_Name}
-                    placeholder="Magazine_Name"
-                    placeholderTextColor="#84817a"
-                  
-                />
-                 {errors.Magazine_Name &&
-                     <Text style={{ fontSize: 10, color: 'red' }}>{errors.Magazine_Name}</Text>
-                    }
-               </View>
 
+              <View>
+                  
+                  {/* <Feather name="phone" size={24} color="black" style={styles.iconInput}/> */}
+                  <TextInput
+                      style={styles.input}
+                      label="First Name"
+                      mode='outlined'
+                      name = 'first_name'
+                      onChangeText={handleChange('first_name')}
+                      onBlur={handleBlur('first_name')}
+                      value={values.first_name}
+                      placeholder="first_name"
+                      placeholderTextColor="#84817a"
+                  />
+                   {errors.first_name &&
+                       <Text style={{ fontSize: 10, color: 'red' }}>{errors.first_name}</Text>
+                      }
+                </View>
+       
                <View>
                {/* <Feather name="lock" size={24} color="black" style={styles.iconInput}/> */}
                  <TextInput
@@ -303,14 +304,6 @@ const styles = StyleSheet.create({
         shadowColor: "rgba(200, 200, 200, 0.35)",
         borderColor: "rgba(171, 180, 189, 0.65)",
       },
-
-    //   iconInput:{
-    //     position:'absolute',
-    //     color:'#4b4b4b',
-    //     top:22,
-    //     left:10,
-    //     zIndex:1
-    // },
      
   });
    

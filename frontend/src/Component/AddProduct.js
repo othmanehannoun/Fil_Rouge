@@ -21,7 +21,8 @@ const {primary, button} = Colors
 
 export default function AddProduct (props) {
 
-  //const [carnet, setCarnet] = useState([])
+  const Carnet = props.Carnet
+
   const [ProductName, setProductName] = useState();
   const [Price, setPrice] = useState();
   const [lodding, setLodding] = useState(false);
@@ -67,22 +68,15 @@ export default function AddProduct (props) {
   const HandelAddProduct = async()=>{
 
     try{  
-      let Carnet = await AsyncStorage.getItem('Carnet'); 
-      let parsed = JSON.parse(Carnet);  
-      const id = parsed._id
-      const total = parsed.total
-      console.log(total);
-
-
-
+     
       var price = parseInt(Price)
-      const ProductInfo = {ProductName, Price:price, Date:text, idCarnet: id, Type:'Product'}
+      const ProductInfo = {ProductName, Price:price, Date:text, idCarnet: Carnet._id, Type:'Product'}
        console.log(ProductInfo);
 
 
-    const url = 'http://10.0.2.2:7000/product/AddProduct'
+    const url2 = 'http://10.0.2.2:7000/product/AddProduct'
     setLodding(true)
-      axios.post(url, ProductInfo).then(response=>{
+      axios.post(url2, ProductInfo).then(response=>{
         const result = response.data
         const {msg} = result
         if(msg !== 'successfully'){

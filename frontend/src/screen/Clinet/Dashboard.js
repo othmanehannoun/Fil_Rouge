@@ -3,6 +3,7 @@ import { Text, View, StyleSheet, Dimensions, FlatList, TouchableOpacity, Image} 
 import AsyncStorage from '@react-native-async-storage/async-storage'
 // import {Data} from "./Data";
 import { Searchbar } from 'react-native-paper';
+import { FontAwesome5 } from '@expo/vector-icons';
 
 import axios from 'axios'
 import { Colors } from '../../Component/Style';
@@ -107,8 +108,9 @@ import {
                           borderRightColor: '#dddddd',
                           borderRightWidth: 1
                         }]}>
-                          <Text style={{fontSize:20, fontFamily:'BreeSerif-Regular', color: '#3ae374'}}>1000 DH</Text>
-                          <Text style={{textAlign:"center", fontFamily:'BreeSerif-Regular', }}>######</Text> 
+                         <FontAwesome5 name="users" size={24} color="black" />
+                        <Text style={{textAlign:"center", fontFamily:'BreeSerif-Regular'}}>{masterData.length}</Text> 
+                     
                       
                         </View>
                         <View style={styles.infoBox}>
@@ -186,26 +188,17 @@ const styles = StyleSheet.create({
         },
 
         dash: {
-        backgroundColor: primary,
-        height: Dimensions.get('window').width * 0.3,
-        justifyContent: "center",
-        alignItems: "center",
-        padding: 20
-    },
-  //  table: {
-  //      flexDirection: 'row',
-  //      height: Dimensions.get('window').width * 0.3,
-  //      backgroundColor: '#fff',
-  //      width: Dimensions.get('window').width * 0.9,
-  //      alignItems: 'center',
-  //      justifyContent: 'space-between',
-  //      padding: Dimensions.get('window').width * 0.14
-  //  },
+          backgroundColor: primary,
+          height: Dimensions.get('window').width * 0.3,
+          justifyContent: "center",
+          alignItems: "center",
+          padding: 20
+       },
         infoBoxWrapper: {
           backgroundColor: "#FFF",
-          borderBottomColor: 'red',
+          // borderBottomColor: 'red',
           borderBottomWidth: 1,
-          borderTopColor: 'red',
+          // borderTopColor: 'red',
           borderTopWidth: 1,
           padding: 20,
           flexDirection: 'row',

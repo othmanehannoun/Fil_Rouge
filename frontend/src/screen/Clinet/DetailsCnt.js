@@ -268,9 +268,10 @@
       borderRadius: 50
   },
   ViewBtn:{
+    
       width: '100%',
       justifyContent:'center', 
-      margin: 40
+      margin: Dimensions.get('window').width * 0.04
   },
   });
   

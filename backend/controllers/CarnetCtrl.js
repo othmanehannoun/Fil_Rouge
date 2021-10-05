@@ -39,17 +39,28 @@ const CarnetCtrl = {
     },
 
 
-    getCarnetById : async (req, res) => {
-      try {
-        const carnet = await Carnet.findById(req.params.idC);
-        res.json(carnet);
-      } 
-      catch (error) {
-        console.error(error);
-        res.status(500).json({ message: "Server Error" });
-      }
+       // -----3 Get Epicier By Id----- 
+       getCarnetById : async (req, res)=>{
 
+        try {
+            const carnet = await Carnet.findById(req.params.idC);
+            res.json({carnet});
+          } catch (error) {
+            console.error(error);
+            res.status(500).json({ message: "Server Error" });
+          } 
     },
+
+  //   getCarnet : async (req, res)=>{
+
+  //     try {
+  //         const carnet = await Carnet.find().populate('Product').exec();
+  //         res.json({carnet});
+  //       } catch (error) {
+  //         console.error(error);
+  //         res.status(500).json({ message: "Server Error" });
+  //       } 
+  // },
 
     GetCarnetByIdEpicier : async (req, res)=>{
 
@@ -100,7 +111,7 @@ const CarnetCtrl = {
               amount: {
                   currency: "USD",
                   total: totalPrice
-              },
+          },
               description: "This is the payment description."
           }
       ]
@@ -112,7 +123,8 @@ const CarnetCtrl = {
           throw error;
       } else {
           console.log("Create Payment Response");
-         //console.log(payment);
+           console.log(payment);
+          // console.log(payment.links[1].href);
           res.redirect(payment.links[1].href);
       }
   });
@@ -136,7 +148,8 @@ const CarnetCtrl = {
             throw error;
         } else { 
             console.log("Get Payment Response");
-            console.log(JSON.stringify(payment.transactions[0].amount.total));
+           // console.log("aaaaaaaaa", payment);
+            // console.log(JSON.stringify(payment.transactions[0].amount.total));
 
             const price = req.params.totalPrice
             const idcarnet = req.params.IDCarnet
@@ -165,6 +178,7 @@ const CarnetCtrl = {
           
           console.log(req.params.IDCarnet);
           console.log(req.params.totalPrice);
+          // console.log(JSON.stringify(payment));
           res.render("success");
 
      

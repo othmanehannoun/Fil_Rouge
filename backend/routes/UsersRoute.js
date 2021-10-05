@@ -6,12 +6,11 @@ const userCtrl = require('../controllers/ClientCtrl')
 
 router.post('/UserRegister', userCtrl.register);
 
-// router.patch('/update', authSeller, SellerCtrl.resetPassword);
-
 router.post('/UserLogin', userCtrl.login);
-// router.get('/getAllSeller', SellerCtrl.getAllSeller);
+router.get('/getUser/:idUser', userCtrl.getUserById);
+router.patch('/update/:id', userCtrl.UpdateUser);
 
-// router.patch('/valid/:id', SellerCtrl.validSeller);
+// router.get('/getAllSeller', SellerCtrl.getAllSeller);
 
 // router.get('/logout', SellerCtrl.sellerSignout)
 

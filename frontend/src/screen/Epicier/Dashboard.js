@@ -4,6 +4,7 @@ import { Searchbar } from 'react-native-paper';
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
 import axios from 'axios'
+import { FontAwesome5 } from '@expo/vector-icons';
 
 import AppLoading from 'expo-app-loading';
 import { 
@@ -19,6 +20,8 @@ import { Colors } from '../../Component/Style';
         const [masterData, setMasterData] = useState([])
         const [filterData, setFilterData] = useState([])
         const [search, setSearch] = useState('')
+
+        
         
         useEffect(()=>{
               
@@ -26,10 +29,10 @@ import { Colors } from '../../Component/Style';
 
             try{  
             navigation.addListener('focus', async()=>{
-              let user = await AsyncStorage.getItem('user'); 
+              let Epicier = await AsyncStorage.getItem('epicier'); 
               // let token = await AsyncStorage.getItem('token'); 
               // console.log(token);
-              let parsed = JSON.parse(user);  
+              let parsed = JSON.parse(Epicier);  
               const id = parsed._id
 
               await axios.get(url + id)
@@ -91,8 +94,8 @@ import { Colors } from '../../Component/Style';
                         borderRightColor: '#dddddd',
                         borderRightWidth: 1
                       }]}>
-                         <Text style={{fontSize:20, fontFamily:'BreeSerif-Regular', color: '#3ae374'}}>1000 DH</Text>
-                         <Text style={{textAlign:"center", fontFamily:'BreeSerif-Regular', }}>######</Text> 
+                        <FontAwesome5 name="users" size={24} color="black" />
+                        <Text style={{textAlign:"center", fontFamily:'BreeSerif-Regular'}}>{masterData.length}</Text> 
                     
                       </View>
                       <View style={styles.infoBox}>
@@ -122,7 +125,7 @@ import { Colors } from '../../Component/Style';
                   renderItem = {({item}) => (
         
                 <TouchableOpacity
-                onPress = {()=> navigation.push("Details", {Carnet : item})}
+                onPress = {()=> navigation.push("Details", {id : item._id})}
                 >
                    <View 
                    style={{
@@ -132,14 +135,11 @@ import { Colors } from '../../Component/Style';
                        marginHorizontal: 20,
                        height: 'auto',
                        padding: 20,
-                       borderRadius : 10,
+                    
                        borderBottomColor: '#eee',
                        borderBottomWidth: 1,
                        justifyContent : 'space-between'
                        
-                       
-                       
-                      
                    }}
                    > 
                         <View style={{
@@ -183,16 +183,12 @@ const styles = StyleSheet.create({
     },
 
     infoBoxWrapper: {
-      backgroundColor: "#FFF",
-      // borderBottomWidth: 1,
-      // borderBottomColor: 'red',
-      // borderTopColor: 'red',
-      // borderTopWidth: 1,
-       borderWidth: 1,
-       borderColor : button,
-      padding: 20,
-      flexDirection: 'row',
-      height: 100,
+        backgroundColor: "#FFF",
+        borderWidth: 1,
+        borderColor : button,
+        padding: 20,
+        flexDirection: 'row',
+        height: 100,
     },
     
     infoBox: {

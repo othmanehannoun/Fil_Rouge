@@ -24,6 +24,7 @@ const CarnetSchema = mongoose.Schema({
     },
     idClient : {
         type: mongoose.Schema.Types.ObjectId,
+        ref : 'users', 
         require: true
     },
 

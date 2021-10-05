@@ -17,6 +17,8 @@ import { Colors } from '../Component/Style';
 const {primary} = Colors
 
 export default function Cash (props) {
+  const Carnet = props.Carnet
+    console.log('pppppppppp', Carnet);
 
   //const [carnet, setCarnet] = useState([])
   const [Type, setType] = useState('Payment');
@@ -38,18 +40,20 @@ export default function Cash (props) {
 
   const HandelAddPaiment = async()=>{
 
+    
+
     try{  
-      let Carnet = await AsyncStorage.getItem('Carnet'); 
-      let parsed = JSON.parse(Carnet);  
-      const id = parsed._id
-      const total = parsed.total
+      // let Carnet = await AsyncStorage.getItem('Carnet'); 
+      // let parsed = JSON.parse(Carnet);  
+      // const id = parsed._id
+      // const total = parsed.total
       // console.log(total);
 
 
 
       var price = parseInt(Price)
 
-      const ProductInfo = {ProductName: 'Payment', Price:price, idCarnet: id, Type}
+      const ProductInfo = {ProductName: 'Payment', Price:price, idCarnet: Carnet._id, Type}
        // console.log(ProductInfo);
 
 

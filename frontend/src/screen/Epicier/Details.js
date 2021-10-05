@@ -27,22 +27,18 @@
   
   
     export default function Details ({route, navigation}) {
-      const Carnet = route.params;
-     //  console.log('hhhhhdetaill:', Carnet);
+      const data = route.params;
+      const carnetId = data.id;
+    //  console.log('hhhhhdetaill:', Carnet);
       
-      const idC = Carnet.Carnet._id
-      const Clinet_Name = Carnet.Carnet.CarnetName
-      const Total = Carnet.Carnet.total
-
-
-     
-      //console.log(idC);
-
-      AsyncStorage.setItem('Carnet',JSON.stringify(Carnet.Carnet));
+      // const idC = Carnet._id
+      // const Clinet_Name = Carnet.CarnetName
+      // const Total = Carnet.total
 
 
       const [modalVisible, setModalVisible] = useState(false);
       const [modalVisibleCash, setModalVisibleCash] = useState(false);
+      const [carnet, setCarnet] = useState([])
       const [products, setProducts] = useState([])
       // const [refreshing, setRefreshing] = useState(false)
   
@@ -50,12 +46,24 @@
         
          useEffect(()=>{
 
-          const fetchData = ()=>{
+          const fetchData = async()=>{
+
+            // get info Carnet
+            const url1 = 'http://10.0.2.2:7000/Carnet/carnetId/'   
+            await axios.get(url1 + carnetId)
+            .then(response=>{  
+              setCarnet(response.data.carnet)
+              
+            }).catch(err=>{
+              console.log(err);
+            })
+
+            // Get product by Carnet
             const url = 'http://10.0.2.2:7000/product/productbycarnet/'
             
             //setRefreshing(true)
   
-                 axios.get(url + idC)
+                 axios.get(url + carnetId)
                 .then(response=>{
                     setProducts(response.data.result)
                   })
@@ -76,6 +84,7 @@
   
         const changeModelVisible = () =>{
           setModalVisible(!modalVisible)
+
         }
         const changeModelVisibleCash = () =>{
           setModalVisibleCash(!modalVisibleCash)
@@ -103,33 +112,41 @@
                  <View style={styles.infoBoxWrapper}>
                       <View style={[styles.infoBox, {
                         borderRightColor: '#dddddd',
-                        borderRightWidth: 1
+                        borderRightWidth: 1,
+                        width: '40%',
                       }]}>
-                        <Title>{Clinet_Name}</Title>
+                        <Title>{carnet.CarnetName}</Title>
                       </View>
-                      <View style={styles.infoBox}>
-                         <Text style={{fontSize:20, fontFamily:'BreeSerif-Regular', color: '#ff3838'}}>{Total} DH</Text>
+                      <View style={[styles.infoBox, {
+                        borderRightColor: '#dddddd',
+                        borderRightWidth: 1,
+                        width: '40%',
+                      }]}>
+                         <Text style={{fontSize:20, fontFamily:'BreeSerif-Regular', color: '#ff3838'}}>{carnet.total} DH</Text>
                          <Text style={{textAlign:"center", fontFamily:'BreeSerif-Regular', }}>Crédit</Text> 
                       </View>
+                      <View style={[styles.infoBox, {
+                        width: '24%',
+                      }]}>
+                       
+                       <TouchableOpacity 
+                         onPress = {()=> navigation.push("Reminder", {carnet})}
+                        
+                         >
+                         <AntDesign style={{paddingHorizontal: 10}} name="sharealt" size={24} color="black" />
+                           
+                         </TouchableOpacity>
+                          </View>
                   </View>
                      
-                     {/* <View>
-                         <Text style={{fontSize:20, fontFamily:'BreeSerif-Regular', color: '#ff3838'}}>{getTotalPrice()} DH</Text>
-                         <Text style={{textAlign:"center", fontFamily:'BreeSerif-Regular', }}>Crédit</Text>
-                     </View> */}
                  </View>
   
                  <FlatList 
                   style={styles.flatlist}
                   data={products}
-                  // onRefresh={() => HandelRefresh()}
-                  // refreshing={refreshing}
                   keyExtractor = {(item) => item._id}
                   renderItem = {({item}) => (
               
-                  <TouchableOpacity
-                      style={{marginBottom: 10}}
-                  >
                   <View 
                      style={{
                          flexDirection:'row',
@@ -137,6 +154,7 @@
                          marginHorizontal: 20,
                          padding: 20,
                          borderRadius: 20,
+                         marginBottom: 10,
                          justifyContent:'space-between'
                      }}
                      > 
@@ -162,7 +180,7 @@
                            </Text>
                                   
                       </View>
-                      </TouchableOpacity>
+                      
                           
                         )}
                   />
@@ -229,6 +247,7 @@
 
                           <AddProduct 
                            navigation={navigation}
+                           Carnet = {carnet}
                            change = {changeModelVisible}
                          />
 
@@ -254,6 +273,7 @@
 
                           <Cash 
                            navigation={navigation}
+                           Carnet = {carnet}
                            change = {changeModelVisibleCash}
                            
                          />
@@ -298,7 +318,7 @@
         height: 100,
       },
       infoBox: {
-        width: '50%',
+        
         alignItems: 'center',
         justifyContent: 'center',
       },

@@ -66,6 +66,44 @@ const userCtrl = {
 
     },
 
+    // -----3 Get USER By Id----- 
+    getUserById : async (req, res)=>{
+
+        try {
+            const user = await Users.findById(req.params.idUser);
+            res.json({user});
+          } catch (error) {
+            console.error(error);
+            res.status(500).json({ message: "Server Error" });
+          } 
+    },
+
+    // -----4 Upfate Epicier----- 
+
+    UpdateUser : async(req, res)=>{
+
+        try{
+
+        const id = req.params.id
+        const  items = {
+            last_name: req.body.last_name,
+            first_name: req.body.first_name,
+            email : req.body.email,
+            phone : req.body.phone,
+            address : req.body.address
+        }
+        const option = {new : true}
+     
+        const result = await Users.findByIdAndUpdate(id, items, option)
+
+        res.json({result})
+        }
+        catch(err){
+            console.log(err.message);
+        }
+
+    },
+
 }
 
 

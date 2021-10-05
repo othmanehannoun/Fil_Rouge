@@ -57,7 +57,7 @@ export default function Login ({navigation}){
               
             /*AsyncStorage.setItem('user',user);*/  
             AsyncStorage.setItem('user',JSON.stringify({...user})); 
-           // AsyncStorage.setItem('token', accesstoken);
+            AsyncStorage.setItem('Usertoken', accesstoken);
             // console.log(epicier); 
             // npx expo-codemod
             navigation.navigate('DashboardCnt')

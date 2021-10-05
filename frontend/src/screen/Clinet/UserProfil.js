@@ -17,28 +17,19 @@ import {
 
 // import files from '../assets/filesBase64';
 
-const Profile = ({navigation}) => {
+const UserProfil = ({navigation}) => {
 
-  const [epicier, setEpicier] = useState([])
+  const [user, setUser] = useState([])
 
   const fetchData = async()=>{
-      
-    const url = 'http://10.0.2.2:7000/Epicier/getEpicier/'
-    try{  
-      let Epicier = await AsyncStorage.getItem('epicier'); 
-      // console.log(user); 
-      let parsed = JSON.parse(Epicier);  
-      const id = parsed._id  
 
-      
-      await axios.get(url + id)
-      .then(response=>{  
-        // console.log("hadi hiya data:", {...data[0]})
-        setEpicier(response.data.epicier)
-        
-      }).catch(err=>{
-        console.log(err);
-      })
+    try{  
+      let user = await AsyncStorage.getItem('user'); 
+      // console.log(user); 
+      let parsed = JSON.parse(user);  
+      const id = parsed._id 
+      setUser(parsed) 
+
     }  
 
     catch(error){  
@@ -59,7 +50,7 @@ const Profile = ({navigation}) => {
       await axios.get(url)
       .then(response=>{
 
-        AsyncStorage.removeItem('token');
+        AsyncStorage.removeItem('Usertoken');
         alert('Success logout')
         navigation.navigate('TypeUser')
       }).catch(err=>{
@@ -87,7 +78,7 @@ const Profile = ({navigation}) => {
               marginTop:15,
               marginBottom: 5,
               fontSize: 20
-            }]}>{epicier.Username} </Title>
+            }]}>{user.last_name} {user.first_name}</Title>
             <Caption style={styles.caption}>Magazin Othmane</Caption>
           </View>}
         </View>
@@ -96,15 +87,15 @@ const Profile = ({navigation}) => {
     {  <View style={styles.userInfoSection}>
         <View style={styles.row}>
           <Icon name="map-marker-radius" color="#777777" size={20}/>
-          <Text style={{color:"#777777", marginLeft: 20}}>{epicier.address}</Text>
+          <Text style={{color:"#777777", marginLeft: 20}}>{user.address}</Text>
         </View>
         <View style={styles.row}>
           <Icon name="phone" color="#777777" size={20}/>
-          <Text style={{color:"#777777", marginLeft: 20}}>(+212){epicier.phone}</Text>
+          <Text style={{color:"#777777", marginLeft: 20}}>(+212){user.phone}</Text>
         </View>
         <View style={styles.row}>
           <Icon name="email" color="#777777" size={20}/>
-          <Text style={{color:"#777777", marginLeft: 20}}>{epicier.email}</Text>
+          <Text style={{color:"#777777", marginLeft: 20}}>{user.email}</Text>
         </View>
       </View>}
 
@@ -123,19 +114,6 @@ const Profile = ({navigation}) => {
       </View>
 
       <View style={styles.menuWrapper}>
-      <TouchableRipple onPress={() => {navigation.navigate('CartVisite')}}>
-          <View style={styles.menuItem}>
-            <Icon name="heart-outline" color="#FF6347" size={25}/>
-            <Text style={styles.menuItemText}>Carte Visite</Text>
-          </View>
-        </TouchableRipple>
-
-        <TouchableRipple onPress={() => {}}>
-          <View style={styles.menuItem}>
-            <Icon name="credit-card" color="#FF6347" size={25}/>
-            <Text style={styles.menuItemText}>Payment</Text>
-          </View>
-        </TouchableRipple>
       
         <TouchableRipple onPress={() => {}}>
           <View style={styles.menuItem}>
@@ -144,7 +122,7 @@ const Profile = ({navigation}) => {
           </View>
         </TouchableRipple>
 
-        <TouchableRipple onPress={() => {navigation.navigate('Update', {id : epicier._id})}}>
+        <TouchableRipple onPress={() => {navigation.navigate('UserUpdate', {id : user._id})}}>
           <View style={styles.menuItem}>
             <AntDesign name="setting" size={24} color="#FF6347" />
             <Text style={styles.menuItemText}>Settings</Text>
@@ -162,7 +140,7 @@ const Profile = ({navigation}) => {
   );
 };
 
-export default Profile;
+export default UserProfil;
 
 const styles = StyleSheet.create({
   container: {

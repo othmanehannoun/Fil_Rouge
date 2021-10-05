@@ -37,8 +37,8 @@ export default function AddClient ({navigation}){
   
   const  getId = async() => {
     try{  
-      let user = await AsyncStorage.getItem('user'); 
-        let parsed = JSON.parse(user);  
+      let Epicier = await AsyncStorage.getItem('epicier'); 
+        let parsed = JSON.parse(Epicier);  
         const idE = parsed._id
         const MagazineName = parsed.Magazine_Name
         //console.log(MagazineName);

@@ -54,7 +54,7 @@ export default function Login ({navigation}){
             // handleMessage(msg);
               
             /*AsyncStorage.setItem('user',user);*/  
-            AsyncStorage.setItem('user',JSON.stringify({...epicier})); 
+            AsyncStorage.setItem('epicier',JSON.stringify({...epicier})); 
             AsyncStorage.setItem('token', accesstoken);
             
             navigation.navigate('Dashboard')

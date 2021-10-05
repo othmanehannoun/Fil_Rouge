@@ -1,26 +1,18 @@
 const { string } = require('joi');
 const mongoose = require('mongoose');
 
-const ProduitSchema = mongoose.Schema({
-    ProductName : {
-        type : String,
-        require : true,
-       
-    },
-    Price : {
+const PaymentSchema = mongoose.Schema({
+ 
+    total : {
         type : Number,
         require: true
     },
-    
-    Date : {
-        type: String,
 
-    },
     idCarnet : {
         type: mongoose.Schema.Types.ObjectId,
-        ref : 'Carnet',
         require: true
     },
+
     Type :{
         type: String,
         require : true

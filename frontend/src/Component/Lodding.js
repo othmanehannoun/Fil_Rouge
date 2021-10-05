@@ -7,11 +7,17 @@ const {primary} = Colors
 function Lodding ({navigation}){
 
     const detectLogin= async ()=>{
-        const token = await AsyncStorage.getItem('token')
-            if(token){
-                console.log(token);
+        const Eptoken = await AsyncStorage.getItem('token')
+        const Usertoket = await AsyncStorage.getItem('Usertoken')
+            if(Eptoken){
+                console.log(Eptoken);
                 navigation.navigate('Dashboard')
-            }else{
+            }
+            else if (Usertoket){
+                console.log(Usertoket);
+                navigation.navigate('DashboardCnt')
+            }
+            else{
                 navigation.navigate('OnBoardScreen')
             }
       }
