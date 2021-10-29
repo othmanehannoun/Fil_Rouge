@@ -2,30 +2,28 @@ import React, { useEffect, useState } from 'react'
 import { Text, View, StyleSheet, Dimensions, FlatList, TouchableOpacity, Image, Button, } from 'react-native'
 import { Searchbar } from 'react-native-paper';
 import AsyncStorage from '@react-native-async-storage/async-storage'
-
 import axios from 'axios'
 import { FontAwesome5 } from '@expo/vector-icons';
-
 import AppLoading from 'expo-app-loading';
-import { 
-  useFonts, 
-  Inter_200ExtraLight,
-  
-  } from '@expo-google-fonts/inter';
+import { useFonts, Inter_200ExtraLight } from '@expo-google-fonts/inter';
 import { Colors } from '../../Component/Style';
-  const {primary, button, body} = Colors
+
+import config from '../../../config';
+
+
+const {apiUrl} = config;
+const {primary, button, body} = Colors
 
   const  Dashboard = ({navigation})=> {
  
         const [masterData, setMasterData] = useState([])
         const [filterData, setFilterData] = useState([])
         const [search, setSearch] = useState('')
-
-        
-        
+   
         useEffect(()=>{
-              
-            const url = 'http://10.0.2.2:7000/Carnet/carnetbyepicier/'
+          let isCancelled = false;
+
+            const url = apiUrl + `/Carnet/carnetbyepicier/`
 
             try{  
             navigation.addListener('focus', async()=>{
@@ -34,12 +32,15 @@ import { Colors } from '../../Component/Style';
               // console.log(token);
               let parsed = JSON.parse(Epicier);  
               const id = parsed._id
+             
 
               await axios.get(url + id)
               .then(response=>{
                 // console.log("hadi hiya data:", {...data[0]})
+               if(!isCancelled){
                 setFilterData(response.data.carnet)
                 setMasterData(response.data.carnet)
+               }
                 
               }).catch(err=>{
                 console.log(err);
@@ -52,7 +53,11 @@ import { Colors } from '../../Component/Style';
               alert(error)  
             }
           
+            return ()=>{isCancelled = true}
+
+
         }, [])
+
 
         const searchFilter = (text) =>{
           if(text){
@@ -148,7 +153,10 @@ import { Colors } from '../../Component/Style';
                             width:200,
                             alignItems:'center'
                             }}>
-                        <Image source={require('../../../assets/img.jpg')} style={styles.image}></Image>
+                        {/* <Image source={require('../../../assets/img.jpg')} style={styles.image}></Image> */}
+                        <View style={{width:60, backgroundColor:'#cde0f2', padding:20, borderRadius: 50, justifyContent:'center'}}>
+                          <Text style={{textTransform: 'uppercase', fontFamily:'BreeSerif-Regular', color:'black'}}>{item.CarnetName.substr(0, 2)}</Text>
+                        </View>
                         <Text style={{fontSize:20, fontFamily:'BreeSerif-Regular', marginLeft:10, color:'black'}}>{item.CarnetName.toUpperCase()}</Text>
                         </View>
                    

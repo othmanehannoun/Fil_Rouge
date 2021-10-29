@@ -58,10 +58,9 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     height: '18%',
     justifyContent: 'space-between',
-    padding: 40,
+    padding: Dimensions.get('window').width * 0.05,
     alignItems: "center",
     marginBottom:20,
-    marginRight: 20,
     borderRadius: 20,
     shadowColor: "black",
     shadowOffset: {
@@ -76,8 +75,7 @@ const styles = StyleSheet.create({
   categoryItemTitle: {
     color: primary,
     fontFamily: 'BreeSerif-Regular',
-    fontSize: 30,
-   
+    fontSize: Dimensions.get('window').width * 0.07,
   },
   categorySelectWrapper: {
     backgroundColor: button,

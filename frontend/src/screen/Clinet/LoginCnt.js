@@ -13,14 +13,14 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { Colors } from '../../Component/Style';
 const {primary} = Colors
-// import { _storeData, _retrieveData} from "../../Component/localStorge";
+
+import config from '../../../config';
+const {apiUrl} = config;
 
 import { 
   useFonts, 
   Inter_200ExtraLight,
-  
   } from '@expo-google-fonts/inter';
-
 
 
 export default function Login ({navigation}){
@@ -42,7 +42,7 @@ export default function Login ({navigation}){
       handleMessage(null);
       console.log(values);
 
-      const url = 'http://10.0.2.2:7000/UserLogin';
+      const url = apiUrl + '/UserLogin';
       await axios.post(url, values)
         .then((response) => {
           const result = response.data;
@@ -193,7 +193,7 @@ export default function Login ({navigation}){
                 )}
 
                     <TouchableOpacity 
-                        onPress={() => navigation.navigate('RegisterEp')}
+                        onPress={() => navigation.navigate('UserRegister')}
                          style={styles.btnConnection}>
                           <Text
                             style={

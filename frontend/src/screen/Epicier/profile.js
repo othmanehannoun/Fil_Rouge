@@ -13,9 +13,11 @@ import {
  import AsyncStorage from '@react-native-async-storage/async-storage';
 
  import axios from 'axios';
-// import Share from 'react-native-share';
 
-// import files from '../assets/filesBase64';
+ import config from '../../../config';
+
+ const {apiUrl} = config;
+
 
 const Profile = ({navigation}) => {
 
@@ -23,7 +25,7 @@ const Profile = ({navigation}) => {
 
   const fetchData = async()=>{
       
-    const url = 'http://10.0.2.2:7000/Epicier/getEpicier/'
+    const url = apiUrl + '/Epicier/getEpicier/'
     try{  
       let Epicier = await AsyncStorage.getItem('epicier'); 
       // console.log(user); 
@@ -49,16 +51,16 @@ const Profile = ({navigation}) => {
   
   useEffect(()=>{
     fetchData();
-  }, [])
+  }, [epicier])
 
 
   const  logOut = async()=> {
        
-    const url = 'http://10.0.2.2:7000/Epicier/logout'
+    const url = apiUrl + '/Epicier/logout'
 
       await axios.get(url)
       .then(response=>{
-
+        
         AsyncStorage.removeItem('token');
         alert('Success logout')
         navigation.navigate('TypeUser')
@@ -77,9 +79,9 @@ const Profile = ({navigation}) => {
      <View style={styles.userInfoSection}>
         <View style={{flexDirection: 'row', marginTop: 15}}>
           <Avatar.Image 
-            source={{
-              uri: 'https://api.adorable.io/avatars/80/abott@adorable.png',
-            }}
+            source={
+              require('../../../assets/img.jpg')
+            }
             size={80}
           />
           {<View style={{marginLeft: 20}}>
@@ -123,13 +125,7 @@ const Profile = ({navigation}) => {
       </View>
 
       <View style={styles.menuWrapper}>
-      <TouchableRipple onPress={() => {navigation.navigate('CartVisite')}}>
-          <View style={styles.menuItem}>
-            <Icon name="heart-outline" color="#FF6347" size={25}/>
-            <Text style={styles.menuItemText}>Carte Visite</Text>
-          </View>
-        </TouchableRipple>
-
+     
         <TouchableRipple onPress={() => {}}>
           <View style={styles.menuItem}>
             <Icon name="credit-card" color="#FF6347" size={25}/>
@@ -137,7 +133,7 @@ const Profile = ({navigation}) => {
           </View>
         </TouchableRipple>
       
-        <TouchableRipple onPress={() => {}}>
+        <TouchableRipple onPress={() => navigation.navigate('Support')}>
           <View style={styles.menuItem}>
             <Icon name="account-check-outline" color="#FF6347" size={25}/>
             <Text style={styles.menuItemText}>Support</Text>

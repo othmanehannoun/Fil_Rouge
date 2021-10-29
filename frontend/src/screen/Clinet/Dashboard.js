@@ -4,10 +4,13 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 // import {Data} from "./Data";
 import { Searchbar } from 'react-native-paper';
 import { FontAwesome5 } from '@expo/vector-icons';
-
 import axios from 'axios'
+
 import { Colors } from '../../Component/Style';
 const {primary} = Colors
+
+import config from '../../../config';
+const {apiUrl} = config;
 
 
 
@@ -29,11 +32,12 @@ import {
     const [search, setSearch] = useState('')
 
   useEffect(()=>{
-    
-    const fetchData = async()=>{
-      
-      const url = 'http://10.0.2.2:7000/Carnet/carnetbyclient/'
+    const aborController = new AbortController()
+    const signal = aborController.signal
 
+    const fetchData = async()=>{
+    
+      const url = apiUrl + '/Carnet/carnetbyclient/'
 
       try{  
        navigation.addListener('focus', async()=>{
@@ -42,30 +46,25 @@ import {
         const id = parsed._id
         // console.log(id);
 
-        await axios.get(url + id)
+        await axios.get(url + id, {signal : signal})
         .then(response=>{
           // console.log("hadi hiya data:", {...data[0]})
-          
-          setFilterData(response.data.carnet)
-          setMasterData(response.data.carnet)
-          
+         
+              setFilterData(response.data.carnet)
+              setMasterData(response.data.carnet)
+        
         }).catch(err=>{
           console.log(err);
         })
-
        })
-      }  
-
-      catch(error){  
+      } catch(error){  
         alert(error)  
       }
     
     }
     fetchData();
     
-    return () =>{
-          
-    }
+    return () => {aborController.abort()};
   }, [])
 
   const searchFilter = (text) =>{
@@ -138,7 +137,7 @@ import {
                   renderItem = {({item}) => (
         
                 <TouchableOpacity
-                onPress = {()=> navigation.push("DetailsCnt", {Carnet : item})}
+                onPress = {()=> navigation.push("DetailsCnt", {id : item._id})}
                 >
                    <View 
                    style={{

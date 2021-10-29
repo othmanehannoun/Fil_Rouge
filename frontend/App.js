@@ -1,7 +1,6 @@
 
 import * as React from 'react';
-import {ActivityIndicator,Text, StyleSheet, View, Image, Dimensions} from 'react-native'
-
+import {StyleSheet} from 'react-native'
 
 import { createStackNavigator } from '@react-navigation/stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
@@ -12,6 +11,7 @@ import { AntDesign } from '@expo/vector-icons';
 import TypeUser from './src/screen/TypeUser';
 import OnBoardScreen from './src/screen/OnBoardScreen';
 import Lodding from './src/Component/Lodding'
+import Support from './src/Component/support'
 
 
 import Login from './src/screen/Epicier/Login';
@@ -23,14 +23,16 @@ import Details from './src/screen/Epicier/Details';
 import Update from './src/screen/Epicier/Update'
 import CartVisite from './src/screen/Epicier/CartVisite';
 import Reminder from './src/screen/Epicier/Reminder';
+import PhoneNumber from './src/screen/Epicier/PhoneNumber';
 //import MainTabScreen from './src/screen/MainTabScreen';
 
 import LoginCnt from './src/screen/Clinet/LoginCnt';
-// import Register from './src/screen/Epicier/Register';
+import UserRegister from './src/screen/Clinet/Register';
 import DashboardCnt from './src/screen/Clinet/Dashboard';
 import DetailsCnt from './src/screen/Clinet/DetailsCnt';
 import UserProfil from './src/screen/Clinet/UserProfil'
 import UserUpdate from './src/screen/Clinet/UserUpdate'
+import Comande from './src/screen/Clinet/Comande';
 
 // import { Colors } from './src/Component/Style';
 //   const {primary} = Colors 
@@ -67,12 +69,13 @@ const App = () => {
                      <Tab.Screen name="Profil" 
                      component={Profile}
                      options={{
+                     
                        tabBarIcon: () => (
                          <AntDesign name="user" size={24} color="black" />
                        ),
                      }} />
                       
-                   </Tab.Navigator>
+              </Tab.Navigator>
               
               
        )
@@ -102,8 +105,7 @@ const App = () => {
                      }} />
                       
                    </Tab.Navigator>
-              
-              
+                       
        )
    
 }
@@ -123,25 +125,27 @@ const App = () => {
                 <Stack.Screen name="Lodding" component={Lodding} options={{headerShown: false}} />
                 <Stack.Screen name="OnBoardScreen" component={OnBoardScreen} options={{headerShown: false}} />
                 <Stack.Screen name="TypeUser" component={TypeUser} options={{ title: 'Welcome', headerTitleStyle: {fontWeight: 'bold'} }} />
-                
+                <Stack.Screen name="Support" component={Support} options={{headerShown: false}} />
+
                 {/* ROUTER EPICIER */}
                 <Stack.Screen name="RegisterEp" component={Register} options={{ title: 'Register', headerTitleStyle: {fontWeight: 'bold'} }} />
                 <Stack.Screen name="LoginEp" component={Login} options={{ title: 'Login', headerTitleStyle: {fontWeight: 'bold'} }} />
-                <Stack.Screen name="Dashboard" component={TabNavEp} options={{ title: 'Dashboard', headerTitleStyle: {fontWeight: 'bold'}}} />
+                <Stack.Screen name="Dashboard" component={TabNavEp} options={{ title: 'Karny', headerTitleStyle: {fontWeight: 'bold'}}} />
                 <Stack.Screen name="Details" component={Details} options={{ title: 'Details', headerTitleStyle: {fontWeight: 'bold'} }} />
                 <Stack.Screen name="Update" component={Update} options={{ title: 'Update', headerTitleStyle: {fontWeight: 'bold'} }} />
                 <Stack.Screen name="CartVisite" component={CartVisite} options={{ title: 'Carte Visite', headerTitleStyle: {fontWeight: 'bold'} }} />
                 <Stack.Screen name="Reminder" component={Reminder} options={{ title: 'Reminder', headerTitleStyle: {fontWeight: 'bold'} }} />
+                <Stack.Screen name="PhoneNumber" component={PhoneNumber} options={{ title: 'PhoneNumber', headerTitleStyle: {fontWeight: 'bold'} }} />
 
                 {/* ROUTER CLIENT */}
                 {/* <Stack.Screen name="RegisterCnt" component={Register} options={{ title: 'Register', headerTitleStyle: {fontWeight: 'bold'} }} /> */}
                 <Stack.Screen name="LoginCnt" component={LoginCnt} options={{ title: 'Login', headerTitleStyle: {fontWeight: 'bold'} }} />
+                <Stack.Screen name="UserRegister" component={UserRegister} options={{ title: 'Register', headerTitleStyle: {fontWeight: 'bold'} }} />
                 <Stack.Screen name="DashboardCnt" component={TabNavUser} options={{ title: 'Dashboard', headerTitleStyle: {fontWeight: 'bold'}}} />
                 <Stack.Screen name="DetailsCnt" component={DetailsCnt} options={{ title: 'Details', headerTitleStyle: {fontWeight: 'bold'} }} />
                 <Stack.Screen name="UserUpdate" component={UserUpdate} options={{ title: 'Update infos', headerTitleStyle: {fontWeight: 'bold'} }} />
-
-
-              
+                <Stack.Screen name="Comande" component={Comande} options={{ title: 'Commande', headerTitleStyle: {fontWeight: 'bold'} }} />
+     
               </Stack.Navigator>
     
               {/* <Drawer.Navigator >

@@ -3,17 +3,16 @@ import { Text, View, StyleSheet, TouchableOpacity, TextInput, ActivityIndicator,
 import Button from '../../button/Button';
 import Header from '../../Component/Header'
 import * as Yup from 'yup'
-
 import { Feather } from '@expo/vector-icons';
 import { Formik } from "formik";
-
 import axios from 'axios';
 import AppLoading from 'expo-app-loading';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
 import { Colors } from '../../Component/Style';
+import config from '../../../config';
+
+const {apiUrl} = config;
 const {primary, body} = Colors
-// import { _storeData, _retrieveData} from "../../Component/localStorge";
 
 import { 
   useFonts, 
@@ -40,7 +39,7 @@ export default function Login ({navigation}){
       handleMessage(null);
       console.log(values);
 
-      const url = 'http://10.0.2.2:7000/Epicier/Login';
+      const url = apiUrl + '/Epicier/Login';
       await axios.post(url, values)
         .then((response) => {
           const result = response.data;

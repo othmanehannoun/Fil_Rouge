@@ -5,16 +5,13 @@ import { FontAwesome } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
 import {Formik} from 'formik'
 import axios from 'axios';
-import AsyncStorage from '@react-native-async-storage/async-storage'
-
-
-// import DateTimePickerModal from "react-native-modal-datetime-picker";
-
 import AddButton from '../button/Button' 
-
 
 import { Colors } from '../Component/Style';
 const {primary} = Colors
+
+import config from '../../config';
+const {apiUrl} = config;
 
 export default function Cash (props) {
   const Carnet = props.Carnet
@@ -39,25 +36,15 @@ export default function Cash (props) {
   // API
 
   const HandelAddPaiment = async()=>{
-
     
-
     try{  
-      // let Carnet = await AsyncStorage.getItem('Carnet'); 
-      // let parsed = JSON.parse(Carnet);  
-      // const id = parsed._id
-      // const total = parsed.total
-      // console.log(total);
-
-
-
       var price = parseInt(Price)
 
       const ProductInfo = {ProductName: 'Payment', Price:price, idCarnet: Carnet._id, Type}
        // console.log(ProductInfo);
 
 
-    const url = 'http://10.0.2.2:7000/product/AddProduct'
+    const url = apiUrl + '/product/AddProduct'
     setLodding(true)
       axios.post(url, ProductInfo).then(response=>{
         const result = response.data

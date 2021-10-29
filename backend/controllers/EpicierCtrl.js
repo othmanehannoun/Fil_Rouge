@@ -4,6 +4,10 @@ const jwt = require('jsonwebtoken')
 const validation = require('../middleware/validation')
 const nodemailer = require('nodemailer')
 const { model } = require('mongoose')
+// const {cloudinary} = require('../utils/cloudinary');
+
+// app.use(express.json({ limit: '50mb' }));
+// app.use(express.urlencoded({limit: '50mb' , extended: true}));
 
 
 const EpicierCtrl = {
@@ -11,6 +15,24 @@ const EpicierCtrl = {
     // -----1 Register-----  
     register: async (req, res) =>{
         try {
+
+            // const fileStr = req.body.data;
+            // console.log('uploading Img ...');
+
+            // const uploadedResponse = await cloudinary.uploader.
+            // upload(fileStr,{
+            //     upload_preset: 'sbiya3'
+            // })
+            // console.log(uploadedResponse);
+            // console.log("----------------------------");
+            // console.log("uploadedResponse.secure_url : ",uploadedResponse.secure_url);
+            // const urlUmagePublic = uploadedResponse.secure_url;
+            // console.log("----------------------------");
+            // res.json({msg:"YAYAYAYA"})
+        
+        
+           
+
             console.log(req.body);
             const { error } = validation.registerValidation(req.body);
             

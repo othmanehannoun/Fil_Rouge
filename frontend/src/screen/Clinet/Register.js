@@ -13,6 +13,9 @@ import * as Yup from 'yup'
 import { Colors } from '../../Component/Style';
 const {primary} = Colors
 
+import config from '../../../config';
+const {apiUrl} = config;
+
 import AppLoading from 'expo-app-loading';
 import { 
   useFonts, 
@@ -21,7 +24,7 @@ import {
   } from '@expo-google-fonts/inter';
 
 
-export default function Register ({navigation}){
+export default function UserRegister ({navigation}){
 
   const validationSchema = Yup.object({
     last_name: Yup.string().min(6, 'length must be at least 6 characters long').required('Last Name is Required'),
@@ -39,16 +42,16 @@ export default function Register ({navigation}){
     const HandelRegister =(values, setSubmitting)=>{
 
       handleMessage(null)
-      const url = 'https://carnetbackend.herokuapp.com/Epicier/Register'
+      const url = apiUrl + '/UserRegister'
       axios.post(url, values).then(response=>{
         const result = response.data
         const {msg} = result
-        if(msg !== 'You have register in successfully'){
+        if(msg !== 'successfully'){
           handleMessage(msg);
           
         }else{
           alert('Successfly')
-          navigation.navigate('LoginEp')
+          navigation.navigate('LoginCnt')
         }
         setSubmitting(false)
       })

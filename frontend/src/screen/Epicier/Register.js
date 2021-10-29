@@ -1,17 +1,21 @@
 import React from 'react'
-import { Text, View, StyleSheet, TextInput, TouchableOpacity, ScrollView, KeyboardAvoidingView, ActivityIndicator, Dimensions } from 'react-native'
-import Button from '../../button/Button';
+import { Text, View, StyleSheet, TextInput, TouchableOpacity, Button ,ScrollView, KeyboardAvoidingView, ActivityIndicator, Dimensions } from 'react-native'
+import BTN from '../../button/Button';
 import Header from '../../Component/Header';
 import { AntDesign } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
 import {Formik} from 'formik'
 import axios from 'axios';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as ImagePicker from 'expo-image-picker';
+// import * as DocumentPicker from "expo-document-picker";
 
 import * as Yup from 'yup'
 
 import { Colors } from '../../Component/Style';
 const {primary} = Colors
+
+import config from '../../../config';
+const {apiUrl} = config;
 
 import AppLoading from 'expo-app-loading';
 import { 
@@ -23,39 +27,59 @@ import {
 
 export default function Register ({navigation}){
 
+  const [message, setMessage] = React.useState();
+  const [fileOne, setFileOne] = React.useState();
+
+
+
+  const pickDocument = async () => {
+    
+      let data = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.All,
+        allowsEditing: true,
+        aspect: [4, 3],
+        quality: 1,
+      });
+  
+     // console.log('AAAAAAAAAAA', result);
+  
+      if (!data.cancelled) {
+        
+          setFileOne(data.uri);
+        
+      }
+
+  };
+
+
+  //   const previewFile = (file) =>{
+  //   const reader = new FileReader();
+  //   // hna kan diro convert image to url
+  
+  //     reader.readAsDataURL(file);
+ 
+  //     reader.onloadend = () => {
+  //       const aa = reader.result;
+  //       setFileOne(aa)
+  //       console.log(aa);
+  //     };
+  // }
+
+  const phoneRegExp = /^\(?([+]{1})\)?([0-9]{3})[-. ]?([5-7]{1})?([0-9]{9})$/
+
   const validationSchema = Yup.object({
     Username: Yup.string().min(6, 'length must be at least 6 characters long').required('Last Name is Required'),
     Magazine_Name: Yup.string().min(6, 'length must be at least 6 characters long').required('Last Name is Required'),
     email: Yup.string().email('Invalid email address').required('email is Required'),
-    phone: Yup.string().matches(/^\d{10}$/, 'Is not in correct format').min(10, 'Invalid phone number').required('Phone Number is Required'),
+    phone: Yup.string().matches(phoneRegExp, 'Phone number is not valid').required('Phone Number is Required'),
     password: Yup.string().min(10, 'Invalid password').required('Required').required('password is Required'),
     address: Yup.string().min(6, 'Invalid address : length must be at least 6 characters long ').required('adress is Required'),
   })
 
-    const [message, setMessage] = React.useState();
-  
-    const initialValues = {Username : '',Magazine_Name : '',email : '',phone : '', password : '', address : ''}
+    const initialValues = {Username : '',  Magazine_Name : '', email : '',phone : '', password : '', address : ''}
 
     const HandelRegister =(values, setSubmitting)=>{
-
-      handleMessage(null)
-      const url = 'http://10.0.2.2:7000/Epicier/Register'
-      axios.post(url, values).then(response=>{
-        const result = response.data
-        const {msg} = result
-        if(msg !== 'You have register in successfully'){
-          handleMessage(msg);
-          
-        }else{
-          alert('Successfly')
-          navigation.navigate('LoginEp')
-        }
-        setSubmitting(false)
-      })
-      .catch(error=>{
-        setSubmitting(false)
-        console.log(error);
-      })
+      navigation.navigate('PhoneNumber', {infos : values})
     }
 
     const handleMessage = (message)=>{
@@ -118,8 +142,7 @@ export default function Register ({navigation}){
               <View>
               <AntDesign name="user" size={24} color="black" style={styles.iconInput} />
                 
-                <TextInput
-                      
+                <TextInput 
                       style={styles.input}
                       name='Username'
                       onChangeText={handleChange('Username')}
@@ -135,6 +158,8 @@ export default function Register ({navigation}){
                             
               </View>
 
+             
+             
               <View>
               <AntDesign name="user" size={24} color="black" style={styles.iconInput} />
                 
@@ -152,7 +177,13 @@ export default function Register ({navigation}){
                      <Text style={{ fontSize: 15, color: 'red', textAlign:'center', fontWeight:'bold' }}>{errors.Magazine_Name}</Text>
                     }
               </View>
-
+              {/* <TouchableOpacity>
+                <Button
+                  title="upload your file"
+                  color="black"
+                  onPress={pickDocument}
+                />
+              </TouchableOpacity> */}
                 <View>
                 <AntDesign name="mail" size={24} color="black" style={styles.iconInput}/>
                 
@@ -176,11 +207,12 @@ export default function Register ({navigation}){
                 <Feather name="phone" size={24} color="black" style={styles.iconInput}/>
                 <TextInput
                     style={styles.input}
+                    keyboardType={'numeric'}
                     name= 'phone'
                     onChangeText={handleChange('phone')}
                     onBlur={handleBlur('phone')}
-                    value={values.phone}
-                    placeholder="PHONE NUMBER"
+                    value = {values.phone}cn
+                    placeholder="+XXX-XXXXXXXXXX"
                     placeholderTextColor="#84817a"
                 />
                 {errors.phone &&
@@ -227,14 +259,14 @@ export default function Register ({navigation}){
                <View style={{}}>
                {
                   !isSubmitting && (
-                    <Button onPressFunction={handleSubmit}
+                    <BTN onPressFunction={handleSubmit}
                         title="Sign up"
                         
                  />
                   )
                 }
                  {isSubmitting && (
-                   <Button disabled={true}
+                   <BTN disabled={true}
                    title={<ActivityIndicator size="large" color="#fff" />}
                    
                />

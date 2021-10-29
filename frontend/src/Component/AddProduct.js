@@ -5,9 +5,9 @@ import { FontAwesome } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
 import {Formik} from 'formik'
 import axios from 'axios';
-import AsyncStorage from '@react-native-async-storage/async-storage'
 
-
+import config from '../../config';
+const {apiUrl} = config;
 
 
 // import DateTimePickerModal from "react-native-modal-datetime-picker";
@@ -74,7 +74,7 @@ export default function AddProduct (props) {
        console.log(ProductInfo);
 
 
-    const url2 = 'http://10.0.2.2:7000/product/AddProduct'
+    const url2 = apiUrl + '/product/AddProduct'
     setLodding(true)
       axios.post(url2, ProductInfo).then(response=>{
         const result = response.data
@@ -87,7 +87,7 @@ export default function AddProduct (props) {
           handleMessage(msg);  
           setLodding(false)
           closseModel() 
-
+          
          // props.navigation.navigate('Details')
           
         }

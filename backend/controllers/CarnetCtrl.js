@@ -1,7 +1,7 @@
 const Carnet = require('../models/CarnetModel')
 const User = require('../models/UserModel')
 const validation = require('../middleware/validation')
-const Product = require('../models/ProductModel')
+const Payment = require('../models/PaymentModel')
 const paypal = require("paypal-rest-sdk");
 const { model } = require('mongoose')
 
@@ -155,15 +155,13 @@ const CarnetCtrl = {
             const idcarnet = req.params.IDCarnet
             console.log(idcarnet);
 
-            const newProduct = new Product({
-
-             ProductName : "Payment",
-             Price : price, 
+            const newPayment = new Payment({
+             totalPrice : price, 
              idCarnet : idcarnet,
              Type : "Payment"
                        
           })
-          const done = newProduct.save()
+          const done = newPayment.save()
 
           const updateTotale =async () =>{
             const result = await Carnet.findById(req.params.IDCarnet);

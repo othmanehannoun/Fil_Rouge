@@ -3,13 +3,14 @@ const mongoose = require('mongoose');
 
 const PaymentSchema = mongoose.Schema({
  
-    total : {
+    totalPrice : {
         type : Number,
         require: true
     },
 
     idCarnet : {
         type: mongoose.Schema.Types.ObjectId,
+        ref : 'Carnet',
         require: true
     },
 
@@ -23,4 +24,4 @@ const PaymentSchema = mongoose.Schema({
 });
 
 
-module.exports = mongoose.model('Product', ProduitSchema);
+module.exports = mongoose.model('Payment', PaymentSchema);

@@ -52,17 +52,18 @@ function Login (){
               
 
                 <TouchableOpacity 
-                style={{
-                    backgroundColor:"#000AFF",
-                    padding:10,
-                    width: 55,
-                    borderRadius:50,
-                    marginHorizontal:20
-                    
-                }}
+                    style={{
+                        backgroundColor:"#000AFF",
+                        padding:10,
+                        width: 55,
+                        borderRadius:50,
+                        marginHorizontal:20
+                        
+                    }}
                 >
                     <Text style={{textAlign:'center', color:"#fff", fontSize:25, fontWeight:"bold"}}>f</Text>
                 </TouchableOpacity>
+                
                 <TouchableOpacity 
                 style={{
                     backgroundColor:"#FF000F",

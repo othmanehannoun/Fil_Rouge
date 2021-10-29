@@ -13,9 +13,10 @@ import {
  import AsyncStorage from '@react-native-async-storage/async-storage';
 
  import axios from 'axios';
-// import Share from 'react-native-share';
 
-// import files from '../assets/filesBase64';
+ import config from '../../../config';
+ const {apiUrl} = config;
+
 
 const UserProfil = ({navigation}) => {
 
@@ -45,7 +46,7 @@ const UserProfil = ({navigation}) => {
 
   const  logOut = async()=> {
        
-    const url = 'http://10.0.2.2:7000/Epicier/logout'
+    const url = apiUrl + '/Epicier/logout'
 
       await axios.get(url)
       .then(response=>{
@@ -115,7 +116,7 @@ const UserProfil = ({navigation}) => {
 
       <View style={styles.menuWrapper}>
       
-        <TouchableRipple onPress={() => {}}>
+        <TouchableRipple onPress={() => navigation.navigate('Support')}>
           <View style={styles.menuItem}>
             <Icon name="account-check-outline" color="#FF6347" size={25}/>
             <Text style={styles.menuItemText}>Support</Text>

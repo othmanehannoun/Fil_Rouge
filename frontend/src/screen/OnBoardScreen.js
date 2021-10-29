@@ -62,6 +62,7 @@ function OnBoardScreen ({navigation}){
                 </TouchableOpacity> */}
 
                 <Button onPressFunction = {() => navigation.navigate('TypeUser')}
+                // PhoneNumber
                 title = 'Get Started'/>
                 
                 </View>

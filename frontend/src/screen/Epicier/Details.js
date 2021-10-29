@@ -1,55 +1,55 @@
-
   import React, { useState, useEffect } from 'react'
-  import { Text, View, StyleSheet, Dimensions, FlatList, TouchableOpacity, Modal, Pressable} from 'react-native'
-  import {
-    Title,
-    Caption
-  } from 'react-native-paper';
-
+  import { Text, View, StyleSheet, Dimensions, FlatList, TouchableOpacity, Modal, Pressable,LogBox} from 'react-native'
+  import { Title } from 'react-native-paper';
   import axios from "axios";
-  import AsyncStorage from '@react-native-async-storage/async-storage'
-  
+  // import AsyncStorage from '@react-native-async-storage/async-storage'
   import { AntDesign } from '@expo/vector-icons';
   import { FontAwesome5 } from '@expo/vector-icons';
-  import { Colors } from '../../Component/Style';
-    const {primary, button, body} = Colors
-
   import AppLoading from 'expo-app-loading';
-  import { 
-    useFonts, 
-    Inter_200ExtraLight,
-    
-    } from '@expo-google-fonts/inter';
+  import { useFonts, Inter_200ExtraLight } from '@expo-google-fonts/inter';
   import AddProduct from '../../Component/AddProduct';
   import Cash from '../../Component/Cash';
-  
-  
-  
+  import { Colors } from '../../Component/Style';
+  import config from '../../../config';
+
+    const {apiUrl} = config;
+    const {primary, button, body} = Colors
+
+ 
   
     export default function Details ({route, navigation}) {
       const data = route.params;
       const carnetId = data.id;
-    //  console.log('hhhhhdetaill:', Carnet);
-      
-      // const idC = Carnet._id
-      // const Clinet_Name = Carnet.CarnetName
-      // const Total = Carnet.total
-
-
+  
       const [modalVisible, setModalVisible] = useState(false);
       const [modalVisibleCash, setModalVisibleCash] = useState(false);
       const [carnet, setCarnet] = useState([])
+
+    
       const [products, setProducts] = useState([])
+      const [payment, setPayment ] = useState([])
+      const [margeData, setMargeData] = useState([])
+      const [change, setChange] = useState(false)
       // const [refreshing, setRefreshing] = useState(false)
+     
+     
   
-  
-        
+
+       
+     
+    const MergeData = ()=>{
+      const merge = [...products, ...payment]
+      const all = merge.sort((a, b)=> b.createdAt > a.createdAt ) 
+      setMargeData(all);
+      // setChange(!change)
+      LogBox.ignoreAllLogs()
+    }
+      
          useEffect(()=>{
-
-          const fetchData = async()=>{
-
-            // get info Carnet
-            const url1 = 'http://10.0.2.2:7000/Carnet/carnetId/'   
+          let isCancelled = false;
+                    
+          const fetchData = async() =>{
+            const url1 = apiUrl + '/Carnet/carnetId/'   
             await axios.get(url1 + carnetId)
             .then(response=>{  
               setCarnet(response.data.carnet)
@@ -57,31 +57,43 @@
             }).catch(err=>{
               console.log(err);
             })
-
-            // Get product by Carnet
-            const url = 'http://10.0.2.2:7000/product/productbycarnet/'
             
-            //setRefreshing(true)
-  
-                 axios.get(url + carnetId)
+      
+            // Get Product
+            const url = apiUrl + '/product/productbycarnet/'
+            
+                await axios.get(url + carnetId)
                 .then(response=>{
                     setProducts(response.data.result)
                   })
                 
                 .catch(err=>{
-                  //setRefreshing(true)
                   console.log(err);
                 })
-  
+      
+            // Get Payment
+      
+            const url3 = apiUrl + '/getPayment/'
+            
+               await axios.get(url3 + carnetId)
+              .then(response=>{
+                  setPayment(response.data.payment)
+                 // console.log(payment);
+                })
+              
+              .catch(err=>{
+                console.log(err);
+              })
            }
            fetchData()
+           MergeData()
+      
+         
+          return () =>{isCancelled = true}
+          
+         }, [products, payment])
 
-          return ()=>{
-
-          }
-         }, [])
-        
-  
+         
         const changeModelVisible = () =>{
           setModalVisible(!modalVisible)
 
@@ -107,7 +119,7 @@
           return (
        
               <View style={styles.container}>
-                 <View style={styles.table}>
+               
 
                  <View style={styles.infoBoxWrapper}>
                       <View style={[styles.infoBox, {
@@ -131,7 +143,6 @@
                        
                        <TouchableOpacity 
                          onPress = {()=> navigation.push("Reminder", {carnet})}
-                        
                          >
                          <AntDesign style={{paddingHorizontal: 10}} name="sharealt" size={24} color="black" />
                            
@@ -139,11 +150,20 @@
                           </View>
                   </View>
                      
-                 </View>
-  
+                
+                 <View style={{
+                      flexDirection:'row', justifyContent: 'space-between', 
+                      paddingHorizontal:25, padding:10, marginBottom:10, 
+                      }}
+                    >
+                      <Text style={{fontSize:18, fontFamily:'BreeSerif-Regular', color:'#777777'}}>Informations</Text>
+                      <Text style={{fontSize:18, left: 20, fontFamily:'BreeSerif-Regular', color:'#777777'}}>Crédit</Text>
+                      <Text style={{fontSize:18, fontFamily:'BreeSerif-Regular', color:'#777777'}}>Paiement</Text>
+                  </View>
+
                  <FlatList 
                   style={styles.flatlist}
-                  data={products}
+                  data={margeData}
                   keyExtractor = {(item) => item._id}
                   renderItem = {({item}) => (
               
@@ -158,27 +178,51 @@
                          justifyContent:'space-between'
                      }}
                      > 
-                          <View style={{width:200}}>
                           {
-                              item.Type == "Product"
-                              ?
-                              <Text style={{fontSize:Dimensions.get('window').width * 0.05, fontFamily:'BreeSerif-Regular', color:'black'}}>{item.Date}</Text>
-                              :
-                              <Text style={{fontSize:Dimensions.get('window').width * 0.05, fontFamily:'BreeSerif-Regular', color:'black'}}>{getDatePayment(item.createdAt)}</Text>
+                            item.Type == "Product" 
+                            ?
 
-                            }   
-                          <Text style={{fontSize:Dimensions.get('window').width * 0.05, fontFamily:'BreeSerif-Regular', color:'#777777'}}>{item.ProductName}</Text>
-                          </View>
-                     
-                          <Text style=
-                              {{
-                                fontSize: 20, fontFamily:'BreeSerif-Regular', 
-                                color : item.Type == 'Payment' ? '#27ae60' : '#ff3838'
-                              }}
-                              >
-                              {item.Price} DH
-                           </Text>
+                           <>
+                            <View style={{width:200}}>
+                            
+                            <Text style={{fontSize:Dimensions.get('window').width * 0.05, fontFamily:'BreeSerif-Regular', color:'black'}}>{item.Date}</Text>
+
+                            <Text style={{fontSize:Dimensions.get('window').width * 0.05, fontFamily:'BreeSerif-Regular', color:'#777777'}}>{item.ProductName}</Text>
+                            </View>
+                            <View style={{
+                                  backgroundColor: "#ffeded", right:100, 
+                                  width:100, height:97, 
+                                  position:'absolute', justifyContent: 'center'}}>
+                            <Text style=
+                                {{
+                                  fontSize: 20, fontFamily:'BreeSerif-Regular', color:'#ff3838',textAlign:'center'
+                                }}
+                                >
+                                {item.Price} DH
+                            </Text>
+                            </View>
+                           </>
                                   
+                            :
+                            <>
+                             <View style={{width:200}}>
+                      
+                              <Text style={{fontSize:Dimensions.get('window').width * 0.05, fontFamily:'BreeSerif-Regular', color:'black'}}>{getDatePayment(item.createdAt)}</Text>
+                              </View>
+                              <View style={{ backgroundColor: "#edfff0", right:0, 
+                                    width:100, height:68, 
+                                    position:'absolute', justifyContent: 'center'}}>
+                              <Text style=
+                                  {{
+                                    fontSize: 20, fontFamily:'BreeSerif-Regular', color: '#27ae60',textAlign:'center'
+                                  }}
+                                  >
+                                  {item.totalPrice} DH
+                              </Text>
+                              </View>
+                            </>
+                            
+                          }
                       </View>
                       
                           
@@ -296,26 +340,16 @@
         backgroundColor: body
       },
 
-      table: {
-        padding: 20,
-        backgroundColor:'#fff',
-        flexDirection: 'row',
-        height: Dimensions.get('window').width * 0.2,
-        width: Dimensions.get('window').width * 1,
-        marginBottom:20,
-        alignItems: 'center',
-        justifyContent: 'center',
-        shadowColor: "#000", 
-        elevation: 10,
-      },
-
       infoBoxWrapper: {
+        marginBottom: 5,
         borderBottomColor: '#dddddd',
         borderBottomWidth: 1,
         borderTopColor: '#dddddd',
         borderTopWidth: 1,
         flexDirection: 'row',
-        height: 100,
+        backgroundColor: '#FFFF',
+        height: Dimensions.get('window').width * 0.17,
+        width: Dimensions.get('window').width * 1,
       },
       infoBox: {
         

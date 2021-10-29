@@ -14,7 +14,7 @@ const ProductCtrl = {
             Price,
             Date,
             idCarnet,
-            Type
+            Type: "Product"
         })
         const done = newProduct.save()
             

@@ -8,8 +8,12 @@
 
   import { AntDesign } from '@expo/vector-icons';
   import { FontAwesome5 } from '@expo/vector-icons';
+
   import { Colors } from '../../Component/Style';
     const {primary, button, body} = Colors
+    
+  import config from '../../../config';
+    const {apiUrl} = config;
 
   import AppLoading from 'expo-app-loading';
   import { 
@@ -59,7 +63,7 @@
       }
     
       const fetchClient = ()=>{
-        const url = 'http://10.0.2.2:7000/getUser/'
+        const url =  apiUrl + '/getUser/'
             
         axios.get(url + IdUser)
             .then(response=>{

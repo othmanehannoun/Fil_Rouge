@@ -2,11 +2,12 @@ import React, {useState, useEffect} from 'react'
 import { Text, View, StyleSheet, Dimensions, ActivityIndicator } from 'react-native'
 import Button from '../../button/Button';
 import { TextInput } from 'react-native-paper';
-// import Header from '../../Component/Header'
-// import { AntDesign } from '@expo/vector-icons';
-// import { Ionicons } from '@expo/vector-icons';
 import axios from 'axios';
 import { Colors } from '../../Component/Style';
+import config from '../../../config';
+
+
+const {apiUrl} = config;
 
 const {primary} = Colors
 
@@ -64,7 +65,7 @@ export default function AddClient ({navigation}){
           }
 
             else{
-              const url = 'http://10.0.2.2:7000/Carnet/Carnet/';
+              const url = apiUrl + '/Carnet/Carnet/';
               setLodding(true)
               await axios.post(url, ClientInfo)
                 .then((response) => {

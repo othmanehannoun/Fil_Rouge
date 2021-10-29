@@ -5,9 +5,12 @@ import { TextInput } from 'react-native-paper';
 import * as Yup from 'yup'
 import { Formik } from "formik";
 import axios from 'axios';
-import { Colors } from '../../Component/Style';
 
+import { Colors } from '../../Component/Style';
 const {primary, body} = Colors
+
+import config from '../../../config';
+const {apiUrl} = config;
 
 // import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -48,7 +51,7 @@ export default function EpicierUpdate ({route, navigation}){
 
     //    Get Epicier 
        const getEpicier = async()=>{
-        const url = 'http://10.0.2.2:7000/Epicier/getEpicier/'
+        const url = apiUrl + '/Epicier/getEpicier/'
         try{   
           await axios.get(url + id)
         //   console.log(id)
@@ -73,7 +76,7 @@ export default function EpicierUpdate ({route, navigation}){
             handleMessage(null);
             // console.log(values);
     
-            const url = 'http://10.0.2.2:7000/Epicier/update/' + id ;
+            const url = apiUrl + '/Epicier/update/' + id ;
             await axios.patch(url, values)
             .then((response) => {
                 alert('SUCCESS UPDATE')

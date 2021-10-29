@@ -11,11 +11,15 @@ server.engine("ejs", engines.ejs);
 server.set("views", "./views");
 server.set("view engine", "ejs");
 
+server.use(express.json({ limit: '50mb' }));
+server.use(express.urlencoded({limit: '50mb' , extended: true}));
+
 
 // Admin Router 
 var AdminRouter = require('./routes/AdminRouter')
 //Users routes
 var UsersRouter = require('./routes/UsersRoute');
+var Payment = require('./routes/PaymentRouter')
 
 //Epicier routes
 var EpicierRouter = require('./routes/EpicierRouter');
@@ -31,6 +35,7 @@ server.use(express.urlencoded({ extended: false }));
 
 
 server.use('/', UsersRouter);
+server.use('/', Payment)
 
 server.get('/', (req, res)=>{
   res.send('OK')
