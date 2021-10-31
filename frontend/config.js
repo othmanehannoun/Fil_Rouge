@@ -1,5 +1,5 @@
 const config = {
-    apiUrl: 'http://192.168.0.133:7000'
+    apiUrl: 'https://backend-filrouge.herokuapp.com'
 }
 
 export default config
